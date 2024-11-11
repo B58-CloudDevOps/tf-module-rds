@@ -2,7 +2,7 @@
 resource "aws_security_group" "main" {
   name        = "${var.env}-rds-sg"
   description = "${var.env}-rds-sg"
-  #   vpc_id = ?
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "Allows RDP"
