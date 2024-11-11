@@ -1,13 +1,13 @@
-# resource "aws_db_instance" "default" {
-#   allocated_storage           = 10
-#   db_name                     = "mydb"
-#   engine                      = "mysql"
-#   engine_version              = "8.0"
-#   instance_class              = "db.t3.micro"
-#   manage_master_user_password = 
-#   username                    = 
-#   parameter_group_name        = "default.mysql8.0"
-# }
+resource "aws_db_instance" "default" {
+  allocated_storage    = 10
+  db_name              = "expense"
+  engine               = var.engine
+  engine_version       = var.engine_version
+  instance_class       = var.instance_class
+  password             = jsondecode("data.vault_generic_secret.rds.data_json").password
+  username             = jsondecode("data.vault_generic_secret.rds.data_json").username
+  parameter_group_name = "default.mysql8.0"
+}
 
 data "vault_generic_secret" "rds" {
   path = "expense-dev/rds"
