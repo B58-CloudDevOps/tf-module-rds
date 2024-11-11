@@ -5,8 +5,8 @@ resource "aws_db_instance" "main" {
   engine                 = var.engine
   engine_version         = var.engine_version
   instance_class         = var.instance_class
-  password               = jsondecode("data.vault_generic_secret.rds.data_json").password
-  username               = jsondecode("data.vault_generic_secret.rds.data_json").username
+  password               = jsondecode(data.vault_generic_secret.rds.data_json).password
+  username               = jsondecode(data.vault_generic_secret.rds.data_json).username
   parameter_group_name   = aws_db_parameter_group.main.name
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.main.id]
