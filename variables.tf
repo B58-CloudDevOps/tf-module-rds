@@ -1,5 +1,5 @@
 variable "engine" {}
-variable "instance_class" {}
+variable "engine_verison" {}
 variable "instance_class" {}
 
 variable "env" {}
