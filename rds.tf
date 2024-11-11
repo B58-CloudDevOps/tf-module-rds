@@ -12,3 +12,8 @@
 data "vault_generic_secret" "rds" {
   path = "expense-dev/rds"
 }
+
+resource "local_file" "test" {
+  content  = data.vault_generic_secret.rds.data_json
+  filename = "/tmp/temp.json"
+}
