@@ -1,19 +1,24 @@
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "main" {
   allocated_storage    = 10
+  identifier           = "${var.env}-rds"
   db_name              = "expense"
   engine               = var.engine
   engine_version       = var.engine_version
   instance_class       = var.instance_class
   password             = jsondecode("data.vault_generic_secret.rds.data_json").password
   username             = jsondecode("data.vault_generic_secret.rds.data_json").username
-  parameter_group_name = "default.mysql8.0"
+  parameter_group_name = aws_db_parameter_group.main.name
+  skip_final_snapshot  = true
 }
 
-data "vault_generic_secret" "rds" {
-  path = "expense-dev/rds"
+# DB Parameter group
+resource "aws_db_parameter_group" "main" {
+  name   = "${var.env}-rds-pg"
+  family = var.family
 }
 
-resource "local_file" "test" {
-  content  = data.vault_generic_secret.rds.data_json
-  filename = "/tmp/temp.json"
+# DB Subnet Group
+resource "aws_db_subnet_group" "main" {
+  name       = "${var.env}-rds-subnet-group"
+  subnet_ids = var.subnet_ids
 }
