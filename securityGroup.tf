@@ -1,5 +1,6 @@
 # This DB has to be access only by default vpc and by the workloads running on eks
 resource "aws_security_group" "main" {
+  depends_on  = [aws_db_instance.main]
   name        = "${var.env}-rds-sg"
   description = "${var.env}-rds-sg"
   vpc_id      = var.vpc_id
