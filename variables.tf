@@ -4,7 +4,7 @@ variable "instance_class" {}
 
 variable "env" {}
 variable "family" {}
-variable "db_subnet_ids" {}
+variable "subnet_ids" {}
 
 variable "eks_subnet_cidr" {}
 
