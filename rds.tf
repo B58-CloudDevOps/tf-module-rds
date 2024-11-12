@@ -22,5 +22,5 @@ resource "aws_db_parameter_group" "main" {
 # DB Subnet Group
 resource "aws_db_subnet_group" "main" {
   name       = "${var.env}-rds-subnet-group"
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.db_subnet_ids
 }
